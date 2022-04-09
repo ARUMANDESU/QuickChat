@@ -1,0 +1,24 @@
+{
+  "name": "randomchat-website-",
+  "version": "1.0.0",
+  "description": "Website where you can chat with strangers.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARUMANDESU/RandomChat-WebSite-.git"
+  },
+  "author": "Arman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ARUMANDESU/RandomChat-WebSite-/issues"
+  },
+  "homepage": "https://github.com/ARUMANDESU/RandomChat-WebSite-#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
