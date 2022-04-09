@@ -4,7 +4,7 @@ body{
 }
 
 .logo{
-    width: 75px;
+    width: 95px;
     height: 75px;
 }
 
@@ -13,4 +13,11 @@ body{
     background-color: #222222;
     color: #FFFFFF;
     border-radius:4%;
+}
+
+.button2{
+    background-color: #ffffff;
+    color: #222222;
+    border-radius:4%;
+
 }
