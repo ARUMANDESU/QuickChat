@@ -1,6 +1,11 @@
-const express = require('express')
+const express = require('express');
+const path = require('path');
 const app = express()
 const port = 3000
+
+//using images from "images" folder
+app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname+'/css'));
 
 app.get('/', (req, res) =>{
     res.redirect("/home")

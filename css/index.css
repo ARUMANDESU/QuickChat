@@ -1,0 +1,16 @@
+body{
+    font-family: 'Balsamiq Sans', cursive;
+    font-size: 20px;
+}
+
+.logo{
+    width: 75px;
+    height: 75px;
+}
+
+
+.button1{
+    background-color: #222222;
+    color: #FFFFFF;
+    border-radius:4%;
+}

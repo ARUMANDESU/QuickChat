@@ -10,6 +10,7 @@ Website where you can chat with strangers.
 - [Visual Studio Code (code editor)](https://code.visualstudio.com)
 - [WebStorm (IDE)](https://www.jetbrains.com/ru-ru/webstorm/)
 - [Gitkraken (Git GUI)](https://www.gitkraken.com/)
+- [Figma (collaborative interface design tool)](https://www.figma.com/file/R5Vdnr63TgffrKACGImv31/Quick-chat?node-id=0%3A1)
 
 ---
 
