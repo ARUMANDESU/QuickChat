@@ -1,11 +1,15 @@
 const express = require('express');
-const path = require('path');
+const bodyParser = require("body-parser");
 const app = express()
+
 const port = 3000
 
 //using images from "images" folder
-app.use(express.static(__dirname + '/images'));
-app.use(express.static(__dirname+'/css'));
+app.use("/public",express.static(__dirname + '/public'));
+
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) =>{
     res.redirect("/home")
@@ -19,6 +23,7 @@ app.get("/about",(req,res)=>{
 app.get("/chat",(req,res)=>{
     res.sendFile(__dirname+"/chat.html")
 })
+
 
 
 
