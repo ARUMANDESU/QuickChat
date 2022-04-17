@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ARUMANDESU/RandomChat-WebSite-#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.3",
     "nodemon": "^2.0.15"
   }
