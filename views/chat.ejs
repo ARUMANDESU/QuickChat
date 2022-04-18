@@ -10,17 +10,27 @@
     <section>
         <div class="container-fluid my-5" style="font-size: 40px;">
             <div class="container" style=" border-style: solid; border-width: 2px; background-color: #2FB6A6;">
-                <div style="height: 600px;" id="chat">
-                    <img src= <%= gifImg %> >
+                <div style="height:600px;" id="chat">
+                    
                 </div>
  
-                    <form action="/chat" method="post" class="container-fluid d-flex flex-row dalign-content-center">
-                        <input class="form-control" type="text" name="gifname" placeholder="gif name">
-                        <!-- <div class="btn-group dropup">
+                    <form action="/chat" method="post" class="container-fluid d-flex flex-row dalign-content-center ">
+                        <input class="form-control" type="text" name="" placeholder="text...">
+                        <div  class="btn-group dropup">
+                            
                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             Giphy
                             </button>
                             <div class="dropdown-menu">
+                                <div class="container d-flex flex-wrap ">
+                                    <% parsed.forEach((data)=>{%>
+                                        <!-- <div class="col-xl-3"> -->
+                                            <img class="img-fluid m-1"  src= <%= data.images.original.url %> >
+                                        <!-- <p class="text-fluid"><%= data.title%></p> -->
+                                        <!-- </div> -->
+                                        
+                                    <% })%>
+                                </div>
                                 <form>
                                     <input class="form-control" type="text" name="gifname" placeholder="gif name">
                                     <button type="submit" style="font-size: 25px; width: 150px;height: 40px;">
@@ -28,9 +38,9 @@
                                     </button>
                                 </form>
                             </div>
-                        </div> -->
-                        <button class="justify-content-end" type="submit" style="font-size: 25px; width: 150px;height: 40px;">
-                            find
+                        </div>
+                        <button class="text-fluid" type="submit" style="font-size: 25px; width: 150px;height: 40px;">
+                            send
                         </button>
                     </form>
                     
