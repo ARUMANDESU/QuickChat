@@ -24,7 +24,7 @@ app.get("/about",(req,res)=>{
     res.render("about")
 })
 app.get("/chat",(req,res)=>{
-    res.render("chat")
+    res.render("chat",{parsed:[]})
 })
 
 
@@ -32,24 +32,21 @@ app.post("/chat",(req,res)=>{
     const api_key='FjcUNrdCq0IX06NM4o3M8iWJoVs2FZhC' //get from giphy developers
     const name = req.body.gifname;
 
-    const url='https://api.giphy.com/v1/gifs/search?api_key='+api_key+'&limit=1&q='+name;
+    const url='https://api.giphy.com/v1/gifs/search?api_key='+api_key+'&limit=5&q='+name;
     
     https.get(url,(response)=>{
         console.log(response.statusCode);
 
-        //
-        response.setEncoding('utf8');
+        // without this part of code response don't give us whole json file (found this solution from internet)
         let body = '';
         response.on('data', (d) => {
-            
              body += d;
         });
        
         response.on('end', () => {
             let parsed = JSON.parse(body);
-            let imgUrl =parsed.data[0].images.downsized.url
             
-            res.render('chat',{gifImg:imgUrl})
+            res.render('chat',{parsed:parsed.data})
 
         })
     })
