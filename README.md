@@ -11,6 +11,7 @@ Website where you can chat with strangers.
 - [WebStorm (IDE)](https://www.jetbrains.com/ru-ru/webstorm/)
 - [Gitkraken (Git GUI)](https://www.gitkraken.com/)
 - [Figma (collaborative interface design tool)](https://www.figma.com/file/R5Vdnr63TgffrKACGImv31/Quick-chat?node-id=0%3A1)
+- [Giphy  (world's largest GIF and video library)](https://developers.giphy.com/)
 
 ---
 
@@ -19,3 +20,20 @@ Website where you can chat with strangers.
 - [Node Package Manager](https://www.npmjs.com)
 - [Express (Node.js framework)](https://expressjs.com/ru/)
 - [Nodemon (Node.js framework)](https://www.npmjs.com/package/nodemon) 
+- [EJS (Embedded JavaScript templates)](https://www.npmjs.com/package/ejs)
+
+---
+### ejs template:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('components/head') %>
+</head>
+<body>
+    <%- include('components/nav') %>
+
+    <%- include('components/footer')%>
+</body>
+</html>
+```
