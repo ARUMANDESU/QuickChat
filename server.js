@@ -36,7 +36,7 @@ app.post("/chat",(req,res)=>{
     
     https.get(url,(response)=>{
         console.log(response.statusCode);
-
+        response.setEncoding('utf8');
         // without this part of code response don't give us whole json file (found this solution from internet)
         let body = '';
         response.on('data', (d) => {
