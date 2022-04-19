@@ -3,7 +3,7 @@
   <head>
     <%- include("components/head") %>
 </head>
-  <body style="background-image: url(<%=randomImg%>); background-repeat: no-repeat; background-size: cover;" >
+  <body style="background-image: url(<%=randomImg%>);">
       
 
     <%- include("components/nav") %>
@@ -22,6 +22,57 @@
             </div>
         </div>
     </section>
+
+
+    <selection class = "for-video pt-5 text-center">
+    <div class = "container">
+        <div class = "row justify-content-center">
+            <div class = "col-12 col-md-6">
+                <div class = "video">
+                    <div class = "ratio ratio-16x9">
+                        <div id="player"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </selection>
+
+
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                videoId: 'M7lc1UVf-VE',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+        var done = false;
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+                setTimeout(stopVideo, 6000);
+                done = true;
+            }
+        }
+        function stopVideo() {
+            player.stopVideo();
+        }
+    </script>
+
+
+
     <%- include("components/footer") %>
 
 
