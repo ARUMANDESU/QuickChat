@@ -36,7 +36,7 @@ app.get("/about",(req,res)=>{
         response.on('end', () => {
             let parsedImg = JSON.parse(body);
             
-            res.render('about',{randomImg:parsedImg.urls.raw})
+            res.render('about',{randomImg:parsedImg.urls.regular})
 
         })
     })
