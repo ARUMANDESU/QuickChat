@@ -2,6 +2,10 @@ const express = require('express');
 const https =require("https");
 const bodyParser = require("body-parser");
 const path  = require('path');
+const mongoose = require('mongoose');
+const auth = require("./middlewaree/auth");
+const authRouter = require("./routers/authRouter")
+const {db}=require(__dirname+"/config")
 const app = express();
 const port = 3000;
 
@@ -13,67 +17,17 @@ app.use("/public",express.static(__dirname + '/public'));
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/",authRouter)
 
-app.get('/', (req, res) =>{
-    res.redirect("/home")
-})
-app.get("/home",(req,res)=>{
-    res.render("index")
-})
-app.get("/about",(req,res)=>{
-    // unsplash api
-    const api_key='9ikFXSSzfgU68HWrQ5PF_08eQNUUzwi-KduO5MLDv1M' //get from unsplash developers
-    const url=`https://api.unsplash.com/photos/random/?client_id=${api_key}`;
-    https.get(url,(response)=>{
-        console.log(response.statusCode);
-        response.setEncoding('utf8');
-        // without this part of code response don't give us whole json file (found this solution from internet)
-        let body = '';
-        response.on('data', (d) => {
-             body += d;
-        });
-       
-        response.on('end', () => {
-            let parsedImg = JSON.parse(body);
-            
-            res.render('about',{randomImg:parsedImg.urls.regular})
-
-        })
-    })
-})
-app.get("/chat",(req,res)=>{
-
-    res.render("chat",{parsed:[]})
-})
-
-
-app.post("/chat",(req,res)=>{
-    const api_key='FjcUNrdCq0IX06NM4o3M8iWJoVs2FZhC' //get from giphy developers
-    const name = req.body.gifname;
-
-    const url='https://api.giphy.com/v1/gifs/search?api_key='+api_key+'&limit=5&q='+name;
-    
-    https.get(url,(response)=>{
-        console.log(response.statusCode);
-        response.setEncoding('utf8');
-        // without this part of code response don't give us whole json file (found this solution from internet)
-        let body = '';
-        response.on('data', (d) => {
-             body += d;
-        });
-       
-        response.on('end', () => {
-            let parsed = JSON.parse(body);
-            
-            res.render('chat',{parsed:parsed.data})
-
-        })
-    })
-})
+mongoose
+    .connect(db)
+    .then((res) => console.log('Connected to DB'))
+    .catch(error => console.log(error))
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-app.use((req,res)=>{
-    res.render("error")
+app.use(auth(),(req,res)=>{
+    const avatar= res.user ? res.user.avatarUrl:""
+    res.render("error",{auth:res.user,avatar:avatar,})
 })

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+    <%- include('components/head')%>
+    <!-- <style>
+        body{
+            background: #f2f2f2;
+        }
+    </style> -->
+
+<body>
+<%- include('components/nav') %>
+<div class="container-fluid" style="padding-top: 100px; padding-bottom: 100px; background-color: #f2f2f2;border-radius:67px; ">
+    <div class="container py-5 h-100" style="border-radius: 25px;  filter: drop-shadow(20px 15px 20px rgba(164, 164, 164, 0.25));">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-light text-success" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+    
+                <div class="mb-md-5 mt-md-4 pb-5">
+    
+                  <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
+                  <p class="text-dark mb-5">Please register an account!</p>
+                    <form action="/register" method="post">
+                         <div class="form-outline form-white mb-4">
+                            <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                            <label class="form-label" for="email">Email</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                            <input type="text" id="username" name="username" class="form-control form-control-lg" />
+                            <label class="form-label" for="username">Username</label>
+                        </div>
+            
+                        <div class="form-outline form-white mb-4">
+                            <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+<!-- 
+                        <div class="form-outline form-white mb-4">
+                            <input type="rPassword" id="rPassword" name="rPassword" class="form-control form-control-lg" />
+                            <label class="form-label" for="rPassword">Repeat Password</label>
+                        </div> -->
+            
+            
+                        <button class="btn btn-outline-success btn-lg px-5" type="submit">Sign Up</button>
+                    </form>
+                    <div class="g-signin2" data-onsuccess="onSignIn" style="position: relative; left: 150px; top: 20px;"></div>
+                    <script>
+                      function onSignIn(googleUser) {
+                        var id_token = googleUser.getAuthResponse().id_token;
+                        console.log(id_token)
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/register');
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.onload = function() {
+                            console.log('Signed in as: ' + xhr.responseText);
+                            if(xhr.responseText == 'success') {
+                              signOut();
+                              location.assign('/')
+                            }
+                        };
+                        xhr.send(JSON.stringify({token : id_token}));
+                      }
+                    </script>
+                    <div style="position: relative; top: 20px;">
+                      <p class="mb-0 pt-3">Already have account? <a href="login" class="text-dark fw-bold">Sign In</a>
+                      </p>
+                    </div>
+                </div>
+    
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</div>
+
+<%- include("components/footer")%>
+</body>
+</html>
