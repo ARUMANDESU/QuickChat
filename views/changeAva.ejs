@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('components/head') %>
+    <title>Cabinet</title>
+    <link href="/public/css/personalArea.css" rel="stylesheet">
+
+</head>
+<body>
+<%- include('components/nav') %>
+<div class=" sections">
+    <div class="container inSections">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div id="balance" class="col"> <h6> Balance: </h6> </div>
+                    <div id="bonuses" class="col"> <h6> Bonuses: </h6> </div>
+                    <div class="tooltip">info
+                        <span class="tooltiptext">info</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <button class="buy" style="background-color: #9BD524"> Buy subscription </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="tab " style="margin-left: 15%; margin-right: 15%">
+        <button class="tablinks" onclick="openTab1(event, 'Profile')">Profile</button>
+    </div>
+
+
+
+
+
+    <div id="Profile" class="tabcontent1" style="display: block;">
+        <h3>Profile</h3>
+        <div class="container">
+            <div class="main-body">
+                <div class="row gutters-sm">
+                    <div class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <%if(auth.avatarUrl){%>
+                                    <img src="<%-auth.avatarUrl%>" alt="avatar" class="rounded-circle" width="150">
+                                    <%} else{%>
+                                        <img src="/avatars/ecce-homo.jpg" alt="avatar" class="rounded-circle" width="150">
+                                    <%}%>
+                                    <form method="post" action="/user/edit/ava" enctype="multipart/form-data">
+                                        <input class="form-control" type="file"  id="iavatar" name="iavatar" alt="input avatar" accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp">
+                                        <input class="btn btn-success" type="submit" value="change">
+                                    </form>
+
+                                    <div class="mt-3">
+                                        <h4><%-auth.username%></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+</div>
+
+<%- include('components/footer')%>
+<script src="/public/js/personalArea.js"></script>
+
+</body>
+</html>

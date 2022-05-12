@@ -1,6 +1,6 @@
-# RandomChat-WebSite-
+# Quick Chat
 
-
+## [Heroku Server](https://quick--chat.herokuapp.com/)
 ### Description :
 Website where you can chat with strangers.
 
@@ -21,6 +21,11 @@ Website where you can chat with strangers.
 - [Express (Node.js framework)](https://expressjs.com/ru/)
 - [Nodemon (Node.js framework)](https://www.npmjs.com/package/nodemon) 
 - [EJS (Embedded JavaScript templates)](https://www.npmjs.com/package/ejs)
+---
+### Used APIs
+- [Unsplash (collection of high-quality photos)](https://unsplash.com/developers)
+- [Giphy (world's largest GIF and video library)](https://developers.giphy.com/)
+- [Cloudinaty (Platform where you can upload img and videos after get access them)](https://cloudinary.com/)
 
 ---
 ### ejs template:

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('components/head') %>
+</head>
+<body>
+<%- include('components/nav') %>
+<div class=" container-fluid py-5 d-flex flex-wrap justify-content-center align-items-center " style="background-color: #f2f2f2; border-radius: 67px;">
+    <table class="table  table-hover mx-5">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Phone number</th>
+            <th>Address</th>
+            <th>Edit</th>
+        </tr>
+        <%for(let k=start;k<((end>start+20)?start+20:end);k++){%>
+            <tr>
+                <td> <a class="text pl-5" href="/user/profile/<%-users[k].username%>"><img class="rounded-circle" width="100" src="<%-users[k].avatarUrl%>"><%-users[k].username%></a></td>
+                <td><%-users[k].email%></td>
+                <td><%-users[k].roles%></td>
+                <td><%-users[k].phoneNumber%></td>
+                <td><%-users[k].address%></td>
+                <td>
+                    <form method="post" action="/users/delete/<%-users[k].username%>">
+                        <button type="submit" class="btn btn-danger">remove</button>
+                    </form>
+                    <%if(!users[k].roles.find(item=>{if(item=="ADMIN")return true})){%>
+                    <form method="post" action="/users/make/<%-users[k].username%>/admin">
+                        <button type="submit" class="btn btn-danger">Make Admin</button>
+                    </form>
+                    <%} else {%>
+                    <form method="post" action="/users/make/<%-users[k].username%>/user">
+                        <button type="submit" class="btn btn-danger">Downgrade to user</button>
+                    </form>
+                    <%}%>
+                </td>
+            </tr>
+        <%}%>
+    </table>
+    <div class="d-flex flex-row justify-content-center">
+        <%if(page!=1){%>
+        <a href="/users/<%-page-1%>"><button class="btn btn-sm btn-secondary"><%-page-1%></button></a>
+        <%}%>
+        <a><button class="btn btn-sm btn-secondary"><%-page%></button></a>
+        <%if(end-start>20){%>
+        <a href="/users/<%-page-1+2%>"><button class="btn btn-sm btn-secondary"><%-page-1+2%></button></a>
+        <%}%>
+    </div>
+</div>
+<%- include('components/footer')%>
+</body>
+</html>
