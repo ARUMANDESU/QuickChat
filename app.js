@@ -4,8 +4,9 @@ const bodyParser = require("body-parser");
 const path  = require('path');
 const mongoose = require('mongoose');
 const auth = require("./middlewaree/auth");
-const authRouter = require("./routers/authRouter")
-const {db}=require(__dirname+"/config")
+const Router = require("./routers/router")
+const dotenv =require("dotenv")
+dotenv.config()
 const app = express();
 const port = 3000;
 
@@ -17,10 +18,10 @@ app.use("/public",express.static(__dirname + '/public'));
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/",authRouter)
+app.use("/",Router)
 
 mongoose
-    .connect(db)
+    .connect(process.env.db)
     .then((res) => console.log('Connected to DB'))
     .catch(error => console.log(error))
 
@@ -28,6 +29,5 @@ mongoose
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 app.use(auth(),(req,res)=>{
-    const avatar= res.user ? res.user.avatarUrl:""
-    res.render("error",{auth:res.user,avatar:avatar,})
+    res.render("error",{auth:res.user})
 })

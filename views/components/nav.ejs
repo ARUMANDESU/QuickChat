@@ -32,14 +32,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <%if(auth){%>
-                    <a href="/user/profile/1" class="nav-link">
-                        <img src="<%-avatar%>" class="rounded-circle" width="52">
+                    <%if(auth!=null){%>
+                    <a href="/user/profile/<%-auth.username%>" title="Account">
+                        <img src="<%-auth.avatarUrl?auth.avatarUrl:"/images/login.png"%>" class="rounded-circle" width="72">
                     </a>
                     <%}else{%>
                         <a class="nav-link" href="/login">
                             <button class="button1" style="width: 125px; height: 35px; background-color: #E87C7C;">
-                                <p>Log</p>
+                                <p>Login</p>
                             </button>
                         </a>
                     <%}%>

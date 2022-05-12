@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('components/head') %>
+</head>
+<body>
+<%- include('components/nav') %>
+
+<div class=" container-fluid py-5 d-flex flex-wrap justify-content-center align-items-center " style="height:800px;background-color: #f2f2f2; border-radius: 67px;">
+
+    <div class="col-4 "  >
+        <h2 style="font-size:70px;" class="text-center" >
+            <%-message%>
+        </h2>
+    </div>
+
+</div>
+<%- include('components/footer')%>
+<script>
+    setTimeout(()=>{window.location.href="<%-where%>"},<%-timeout%>)
+</script>
+</body>
+</html>
