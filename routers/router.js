@@ -3,6 +3,7 @@ const router = express()
 const authController =require("../controllers/authController")
 const profileController= require("../controllers/profileController")
 const catalogController = require("../controllers/catalogController")
+const chatController = require('../controllers/chatController')
 const {check, checkSchema} = require("express-validator")
 const authMiddleware = require("../middlewaree/authMiddleware")
 const roleMiddleware= require("../middlewaree/roleMiddleware")
@@ -56,9 +57,8 @@ router
 router
     .get('/about',auth(),catalogController.About)
     .post('/chat',auth(),catalogController.Chat)
-    .get('/chat',auth(),(req,res)=>{
-        res.render("chat",{parsed:[],auth:res.user})
-    })
+    .get('/chat',auth(),chatController.chat)
+    .get('/chat/:username',auth(),chatController.chatusername)
 
 router.get('/logout',authController.logOut)
 module.exports= router;

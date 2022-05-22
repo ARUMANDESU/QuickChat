@@ -7,7 +7,6 @@ const User = new Schema({
     roles:[{type:String, ref:'Role'}],
     avatarUrl:{type:String, unique:false,required:false},
     description:{type:String, unique:false,required:false},
-    fullname:{type:String, unique:false,required:false},
     phoneNumber:{type:String, unique:false,required:false},
     address:{type:String, unique:false,required:false},
     twitterUrl:{type:String, unique:false,required:false},

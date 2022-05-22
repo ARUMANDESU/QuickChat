@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Quick Chat API",
+    "description": "Quick Chat API",
+    "license": {
+      "name": "github",
+      "url": "https://github.com/ARUMANDESU/QuickChat"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/",
+  "tags": [
+    {
+      "name": "API",
+      "description": "API in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/users": {
+      "get": {
+        "tags": ["API"],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
+    "/api/getRandomUser": {
+      "get": {
+        "tags": ["API"],
+        "summary": "Get one random user in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": ["username", "_id", "password"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "url of img which is located in cloudinary"
+        },
+        "description":  {
+          "type": "string"
+        },
+        "phoneNumber":  {
+          "type": "string"
+        },
+        "twitterUrl":  {
+          "type": "string"
+        },
+        "instagramUrl":  {
+          "type": "string"
+        },
+        "facebookUrl":  {
+          "type": "string"
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  }
+}

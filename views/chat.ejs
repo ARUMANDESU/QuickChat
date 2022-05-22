@@ -10,57 +10,57 @@
     <%- include("components/nav") %>
     <section>
         <div class="container-fluid my-5" style="font-size: 40px;">
-            <div class="container" style=" border-style: solid; border-width: 2px; background-color: #2FB6A6;">
-                <div class="d-flex p-4 justify-content-end align-content-end" id="chat">
-                    <div id="mySide" >
-                        
-                    </div>
+
+                <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+                    <i>Loading chat...</i>
                 </div>
+
+                <script>
+                    (function(t,a,l,k,j,s){
+                        s=a.createElement('script');s.async=1;s.src="https://cdn.talkjs.com/talk.js";a.head.appendChild(s)
+                        ;k=t.Promise;t.Talk={v:3,ready:{then:function(f){if(k)return new k(function(r,e){l.push([f,r,e])});l
+                                    .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
+                    Talk.ready.then(function () {
+
+                        const meID='<%=auth.id%>'
+                        var me = new Talk.User({
+                            id: meID,
+                            name: '<%-auth.username%>',
+                            email: '<%-auth.email%>',
+                            photoUrl: '<%-auth.avatarUrl%>',
+                            role:'<%-auth.roles[auth.roles.length-1]%>'
+                        });
+                        window.talkSession = new Talk.Session({
+                            appId: 'tyAo8PId',
+                            me: me,
+                        });
+                        var other = new Talk.User({
+                            id: '<%-user._id%>',
+                            name: '<%-user.username%>',
+                            email: '<%-user.email%>',
+                            photoUrl: '<%-user.avatarUrl%>',
+                            role:'<%-user.roles[user.roles.length-1]%>'
+
+                        });
+
+                        var conversation = talkSession.getOrCreateConversation(
+                            Talk.oneOnOneId(me, other)
+                        );
+                        conversation.setParticipant(me);
+                        conversation.setParticipant(other);
+
+                        var inbox = talkSession.createInbox({ selected: conversation });
+                        inbox.mount(document.getElementById('talkjs-container'));
+                    });
+                </script>
  
-                    <form action="/chat" method="post" class="container-fluid d-flex flex-row dalign-content-center ">
-                        <input id="sendText" class="form-control" type="text" name="" placeholder="text...">
-                        <div  class="btn-group dropup">
-                            
-                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Giphy
-                            </button>
-                            <div class="dropdown-menu">
-                                <div class="container d-flex flex-wrap ">
-                                    <% parsed.forEach((data)=>{%>
-                                        <img class="img-fluid m-1 gifs" name="gifs"  src= <%=data.images.original.url%> >
-                                    <% })%>
-                                </div>
-                                <form>
-                                    <input class="form-control" type="text" name="gifname" placeholder="gif name">
-                                    <button  type="submit" style="font-size: 25px; width: 150px;height: 40px;">
-                                        find
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <button id="send" class="text-fluid" type="submit" style="font-size: 25px; width: 150px;height: 40px;">
-                            send
-                        </button>
-                    </form>
+
                     
             
-            </div>
+
             
         </div>
     </section>
-
     <%- include("components/footer") %>
-
-    <script>
-        let input =document.getElementById("sendText")
-        document.getElementById("send").onclick = function(){
-            document.getElementById("mySide").innerHTML+="<p>"+ input.value +"</p>";
-            input.value="";
-        }
-
-        document.getElementsByName("gifs").onclick = function(){
-            document.getElementById("mySide").innerHTML+='<img id="gifs" class="img-fluid m-1"  src='+this.src+'">'
-        }
-    </script>
     </body>
 </html>

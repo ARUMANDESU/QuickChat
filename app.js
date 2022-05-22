@@ -5,6 +5,8 @@ const path  = require('path');
 const mongoose = require('mongoose');
 const auth = require("./middlewaree/auth");
 const Router = require("./routers/router")
+const MyAPI = require("./routers/apiRouter")
+const swaggerUi = require('swagger-ui-express'), swaggerDocument = require('./swagger.json');
 const dotenv =require("dotenv")
 dotenv.config()
 const app = express();
@@ -13,12 +15,18 @@ const port = process.env.PORT||3000;
 app.set('views', path.join(__dirname,'views'))
 app.set('view engine', 'ejs')
 
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+);
 
 app.use("/public",express.static(__dirname + '/public'));
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/",Router)
+app.use("/api",MyAPI)
 
 mongoose
     .connect(process.env.db)
