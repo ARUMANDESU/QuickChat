@@ -57,8 +57,8 @@ router
 router
     .get('/about',auth(),catalogController.About)
     .post('/chat',auth(),catalogController.Chat)
-    .get('/chat',auth(),chatController.chat)
-    .get('/chat/:username',auth(),chatController.chatusername)
+    .get('/chat',auth(),roleMiddleware(['USER','ADMIN']),chatController.chat)
+    .get('/chat/:username',auth(),roleMiddleware(['USER','ADMIN']),chatController.chatusername)
 
 router.get('/logout',authController.logOut)
 module.exports= router;
