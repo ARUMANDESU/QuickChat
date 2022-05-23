@@ -37,7 +37,7 @@ class catalogController{
                 response.on('end', () => {
                     let parsedImg = JSON.parse(body);
 
-                    res.render('about',{randomImg:parsedImg.urls.regular,auth:res.user})
+                    res.render('about',{randomImg:parsedImg.urls.raw,auth:res.user})
 
                 })
             })
