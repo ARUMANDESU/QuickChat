@@ -11,12 +11,21 @@ const auth =require("../middlewaree/auth")
 const bodyParser = require("body-parser")
 const cookieParser = require('cookie-parser')
 const upload = require("../utils/multer");
+const passport = require('passport');
+
+const session = require("express-session");
+
+router.use(session({secret:"cats"}));
+router.use(passport.initialize());
+router.use(passport.session());
 
 router.use(cookieParser())
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: true }));
 
+router
+    .get('/auth/db', auth(), authController.gLogin);
 
 router
     .get('/login' , (req, res) => {

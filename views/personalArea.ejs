@@ -18,9 +18,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <button class="buy" style="background-color: #9BD524"> Buy subscription </button>
-            </div>
         </div>
     </div>
 
@@ -28,10 +25,6 @@
 
     <div class="tab " style="margin-left: 15%; margin-right: 15%">
         <button class="tablinks" onclick="openTab1(event, 'Profile')">Profile</button>
-        <%if(user._id==auth.id){%>
-            <button class="tablinks" onclick="openTab1(event, 'Payments')">Payments</button>
-        <%}%>
-
 
         <%admin=false%>
         <%auth.roles.forEach((role)=>{if(role=="ADMIN"){admin=true}})%>
@@ -161,17 +154,6 @@
                                 </div>
                             </div>
 
-                            <div class="row gutters-sm">
-                                <div class="col-sm-6 mb-3">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h3>Comments <%-pcomments.length%></h3>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
                         </div>
 
                     </div>
@@ -301,17 +283,6 @@
                                 </div>
                             </div>
 
-                            <div class="row gutters-sm">
-                                <div class="col-sm-6 mb-3">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h3>Comments <%-pcomments.length%></h3>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
                         </div>
 
                     </div>

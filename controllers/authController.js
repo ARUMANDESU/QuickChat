@@ -4,6 +4,27 @@ const bcrypt =require("bcryptjs")
 const jwt =require("jsonwebtoken")
 const {validationResult} =require("express-validator");
 
+const randomPass = () => {
+    let a = Math.round(Math.random() * 11);
+    let passw = a % 3 == 0 ? Math.round(Math.random() * 9) :
+        a % 3 == 1 ? String.fromCharCode(Math.round(Math.random() * (90 - 65) + 65)) :
+            String.fromCharCode(Math.round(Math.random() * (122 - 97) + 97));
+
+    for (let i = 0; i < 20; i++) {
+        if(Math.round(Math.random() * 11) % 2 == 0) {
+            passw += Math.round(Math.random() * 9);
+        }
+        else {
+            if(Math.round(Math.random() * 11) % 2 == 0) {
+                passw += String.fromCharCode(Math.round(Math.random() * (90 - 65) + 65));
+            }
+            else {
+                passw += String.fromCharCode(Math.round(Math.random() * (122 - 97) + 97));
+            }
+        }
+    }
+    return passw;
+}
 
 const generateAccessToken = (id,role)=>{
     const payload={
@@ -42,6 +63,27 @@ class authController{
         }catch(e){
             console.log(e);
             res.status(400).render("message",{auth:res.user,message:"Registration error",timeout:1000,where:"/register"})
+        }
+    }
+    async gLogin(req, res) {
+        try {
+            const email = await req.user.email;
+            const username = await req.user.displayName;
+            let user = await User.findOne({email})
+            if(!user) {
+                const userRole = await Role.findOne({value: "USER"})
+                const hashPassword = bcrypt.hashSync(randomPass(),7);
+                user = new User({email,username,password:hashPassword,roles:[userRole.value],avatarUrl:`${req.user.photos[0].value}`,phoneNumber:"",address:"",twitterUrl:"",instagramUrl:"",facebookUrl:""});
+                await user.save();
+            }
+            const token =generateAccessToken(user._id,user.roles);
+            res.cookie("auth",'Bearer '+ token)
+            res.render("message",{auth:res.user,message:"You successfully logged in",timeout:500,where:"/home"})
+
+        } catch(e) {
+            console.log(e);
+            res.status(400).render("message",{auth:res.user,message:"Login error",timeout:700,where:"/login"})
+
         }
     }
 

@@ -45,7 +45,15 @@
             
                         <button class="btn btn-outline-success btn-lg px-5" type="submit">Sign Up</button>
                     </form>
-                    <div class="g-signin2" data-onsuccess="onSignIn" style="position: relative; left: 150px; top: 20px;"></div>
+                    <div id="gSignInWrapper" class="mt-4">
+                        <span class="label">Sign in with:</span>
+                        <a href='/auth/google'>
+                            <button id="customBtn" class="btn btn-outline-success">
+                                <img src="/public/images/google.png" class="icon"width="35px" height="35px"></span>
+                                <span class="buttonText">Google</span>
+                            </button>
+                        </a>
+                    </div>
                     <script>
                       function onSignIn(googleUser) {
                         var id_token = googleUser.getAuthResponse().id_token;

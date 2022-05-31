@@ -96,10 +96,10 @@ class profileController{
             }
             const u = jwt.verify(token, process.env.secret)
             const oldAvatar=res.user.avatarUrl.split("/")
-            if(oldAvatar!="https://res.cloudinary.com/nezz/image/upload/v1651755541/avatars/ecce-homo_j36lz7.jpg"){
-                const public_id=`${oldAvatar[7]+"/"+oldAvatar[8].slice(0,20)}`
-                const deleteResult= await  cloudinary.uploader.destroy(`${public_id}`);
-            }
+            // if(oldAvatar!="https://res.cloudinary.com/nezz/image/upload/v1651755541/avatars/ecce-homo_j36lz7.jpg"){
+            //     const public_id=`${oldAvatar[7]+"/"+oldAvatar[8].slice(0,20)}`
+            //     const deleteResult= await  cloudinary.uploader.destroy(`${public_id}`);
+            // }
             const result = await cloudinary.uploader.upload(req.file.path,{folder:"avatars",transformation: [{width: 250, height: 250, crop: "thumb"}]});
             const user = await User.updateOne({_id:u.id},{
                 avatarUrl:result.secure_url,

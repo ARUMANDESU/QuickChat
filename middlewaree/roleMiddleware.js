@@ -11,7 +11,7 @@ module.exports = function (roles) {
         try {
             const token=req.cookies.auth.split(' ')[1]
             if (!token) {
-                return res.status(403).json({message: "User not authorized"})
+                return res.status(403).render("message",{user:res.user,auth:res.user,message:"User not authorized",timeout:800,where:"/login"})
             }
             const user = jwt.verify(token, process.env.secret)
             let hasRole = false
@@ -21,12 +21,12 @@ module.exports = function (roles) {
                 }
             })
             if (!hasRole) {
-                return res.status(403).json({message: "You don't have access"})
+                return res.status(403).render("message",{user:res.user,auth:res.user,message:"You don't have access",timeout:800,where:"/home"})
             }
             next();
         } catch (e) {
             console.log(e)
-            return res.status(403).json({message: "User not authorized"})
+            return res.status(403).render("message",{user:res.user,auth:res.user,message:"User not authorized",timeout:800,where:"/login"})
         }
     }
 };
