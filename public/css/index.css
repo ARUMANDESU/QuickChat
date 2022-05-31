@@ -1,6 +1,6 @@
 body{
     font-family: 'Balsamiq Sans', cursive;
-    font-size: 20px;
+    font-size: 17px;
 }
 p{
     padding: 0;
@@ -16,13 +16,13 @@ p{
 .button1{
     background-color: #222222;
     color: #FFFFFF;
-    border-radius:4%;
+    border-radius:5px;
 }
 
 .button2{
     background-color: #ffffff;
     color: #222222;
-    border-radius:4%;
+    border-radius:5px;
 
 }
 

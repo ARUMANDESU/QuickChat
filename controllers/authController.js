@@ -50,9 +50,13 @@ class authController{
             }
             
 
-            const candidate =await User.findOne({username})
+            let candidate =await User.findOne({username})
             if(candidate){
                 return await res.render("message",{auth:res.user,avatar:"",message:"Username already exists",timeout:1000,where:"/register"})
+            }
+            candidate = await User.findOne({email:email})
+            if(candidate){
+                return await res.render("message",{auth:res.user,avatar:"",message:"User with this email already exists",timeout:1000,where:"/register"})
             }
             const hashPassword = bcrypt.hashSync(password,7);
             const userRole = await Role.findOne({value:"USER"});
