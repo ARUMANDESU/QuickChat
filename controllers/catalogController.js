@@ -2,7 +2,7 @@ const User = require("../modules/User")
 const Role = require("../modules/Role")
 const bcrypt =require("bcryptjs")
 const jwt =require("jsonwebtoken")
-const {query} = require("express-validator");
+const {query, body} = require("express-validator");
 const cloudinary = require("cloudinary").v2;
 const formidable = require("formidable")
 const https = require("https");
@@ -52,9 +52,9 @@ class catalogController{
         try {
             const api_key='FjcUNrdCq0IX06NM4o3M8iWJoVs2FZhC' //get from giphy developers
             const name = req.body.gifname;
-
             const url='https://api.giphy.com/v1/gifs/search?api_key='+api_key+'&limit=5&q='+name;
 
+            let parsed={}
             https.get(url,(response)=>{
                 console.log(response.statusCode);
                 response.setEncoding('utf8');
@@ -65,12 +65,11 @@ class catalogController{
                 });
 
                 response.on('end', () => {
-                    let parsed = JSON.parse(body);
-
-                    res.render('chat',{parsed:parsed.data,auth:res.user})
-
+                    parsed = JSON.parse(body);
+                    res.send({payload:parsed});
                 })
             })
+
         }
         catch (e) {
             console.log(e);

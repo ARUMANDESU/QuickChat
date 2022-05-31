@@ -69,5 +69,7 @@ router
     .get('/chat',auth(),roleMiddleware(['USER','ADMIN']),chatController.chat)
     .get('/chat/:username',auth(),roleMiddleware(['USER','ADMIN']),chatController.chatusername)
 
+router
+    .post('/getGifs',auth(),catalogController.Chat)
 router.get('/logout',authController.logOut)
 module.exports= router;

@@ -9,58 +9,77 @@
 
     <%- include("components/nav") %>
     <section>
-        <div class="container-fluid my-auto py-5" style="font-size: 40px;">
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                Giphy
+            </a>
 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <p>this chat sdk doesn't allow for non-premium<br> developers to add their own feature so<br>I cant make it send into chat</p>
+                <div class="container " style="max-width:500px">
+                    <input class="form-control" type="text" name="gifname" id="gifname" placeholder="gif name">
+                    <button type="submit" style="font-size: 25px; width: 150px;height: 40px;" onclick="getGifs(document.getElementById('gifname'))">find</button>
+                    <div style="overflow-y: auto; max-height: 500px;" id="gifs">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid my-auto py-5" style="font-size: 40px;">
+            <div class="c">
                 <div id="talkjs-container" style="width: 100%; margin: 30px;height: 500px;">
                     <i>Loading chat...</i>
                 </div>
 
-                <script>
-                    (function(t,a,l,k,j,s){
-                        s=a.createElement('script');s.async=1;s.src="https://cdn.talkjs.com/talk.js";a.head.appendChild(s)
-                        ;k=t.Promise;t.Talk={v:3,ready:{then:function(f){if(k)return new k(function(r,e){l.push([f,r,e])});l
-                                    .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
-                    Talk.ready.then(function () {
+            </div>
 
-                        const meID='<%=auth.id%>'
-                        var me = new Talk.User({
-                            id: meID,
-                            name: '<%-auth.username%>',
-                            email: '<%-auth.email%>',
-                            photoUrl: '<%-auth.avatarUrl%>',
-                            role:'<%-auth.roles[auth.roles.length-1]%>'
-                        });
-                        window.talkSession = new Talk.Session({
-                            appId: 'tyAo8PId',
-                            me: me,
-                        });
-                        var other = new Talk.User({
-                            id: '<%-user._id%>',
-                            name: '<%-user.username%>',
-                            email: '<%-user.email%>',
-                            photoUrl: '<%-user.avatarUrl%>',
-                            role:'<%-user.roles[user.roles.length-1]%>'
 
-                        });
 
-                        var conversation = talkSession.getOrCreateConversation(
-                            Talk.oneOnOneId(me, other)
-                        );
-                        conversation.setParticipant(me);
-                        conversation.setParticipant(other);
-
-                        var inbox = talkSession.createInbox({ selected: conversation });
-                        inbox.mount(document.getElementById('talkjs-container'));
-                    });
-                </script>
- 
-
-                    
-            
 
             
         </div>
     </section>
     <%- include("components/footer") %>
+    <script>
+        let inbox
+        (function(t,a,l,k,j,s){
+            s=a.createElement('script');s.async=1;s.src="https://cdn.talkjs.com/talk.js";a.head.appendChild(s)
+            ;k=t.Promise;t.Talk={v:3,ready:{then:function(f){if(k)return new k(function(r,e){l.push([f,r,e])});l
+                        .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
+        Talk.ready.then(function () {
+
+            const meID='<%=auth.id%>'
+            var me = new Talk.User({
+                id: meID,
+                name: '<%-auth.username%>',
+                email: '<%-auth.email%>',
+                photoUrl: '<%-auth.avatarUrl%>',
+                role:'<%-auth.roles[auth.roles.length-1]%>'
+            });
+            window.talkSession = new Talk.Session({
+                appId: 'tyAo8PId',
+                me: me,
+            });
+            var other = new Talk.User({
+                id: '<%-user._id%>',
+                name: '<%-user.username%>',
+                email: '<%-user.email%>',
+                photoUrl: '<%-user.avatarUrl%>',
+                role:'<%-user.roles[user.roles.length-1]%>'
+
+            });
+
+            var conversation = talkSession.getOrCreateConversation(
+                Talk.oneOnOneId(me, other)
+            );
+            conversation.setParticipant(me);
+            conversation.setParticipant(other);
+
+            inbox = talkSession.createInbox({
+                selected: conversation,
+            });
+            inbox.mount(document.getElementById('talkjs-container'));
+        });
+    </script>
     </body>
 </html>
